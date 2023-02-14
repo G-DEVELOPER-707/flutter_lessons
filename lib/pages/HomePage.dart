@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_ui/items/post_item.dart';
+import 'package:instagram_ui/models/post_Model.dart';
 import 'package:instagram_ui/states.dart';
+import 'package:instagram_ui/storages.dart';
 
 import '../items/story_item.dart';
 
@@ -134,6 +136,21 @@ class _HomePageState extends State<HomePage> {
                     ),
                   )
                 ]),
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: box?.values.length,
+                  itemBuilder: (ctx, i) {
+                    return postItem(context, box!.getAt(box!.values.length-1-i)!, () {
+                      setState(() {});
+                    }, () {
+                      // posts[i].isLiked2 = !posts[i].isLiked2;
+                      setState(() {});
+                    });
+                  }),
+            ),
 
             // #postList
 
@@ -144,9 +161,9 @@ class _HomePageState extends State<HomePage> {
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: posts.length,
                   itemBuilder: (ctx, i) {
-                    return postItem(context, posts[posts.length -1 - i], () {
-                      posts[i].isLiked = true;
-                      posts[i].isLiked2 = true;
+                    return postItem(context, posts[posts.length - 1 - i], () {
+                      posts[i].isLiked = !posts[i].isLiked;
+                      posts[i].isLiked2 = !posts[i].isLiked2;
 
                       setState(() {});
                     }, () {
@@ -155,7 +172,7 @@ class _HomePageState extends State<HomePage> {
                       setState(() {});
                     });
                   }),
-            )
+            ),
           ],
         ),
       ),

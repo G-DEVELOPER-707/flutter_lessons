@@ -18,6 +18,7 @@ Widget postItem(BuildContext context, PostModel post, void Function() liked,
             InkWell(
               onDoubleTap: () {
                 liked();
+                print("Liked");
               },
               child: post.imagePath.startsWith('assets')
                   ? FadeInImage(
@@ -434,7 +435,7 @@ Widget postItem(BuildContext context, PostModel post, void Function() liked,
                     liked();
                     liked2();
                   },
-                  icon: post.isLiked == true
+                  icon: post.isLiked==true
                       ? const Icon(
                           Icons.favorite,
                           color: Colors.redAccent,

@@ -7,6 +7,8 @@ import 'package:instagram_ui/pages/HomePage.dart';
 import 'package:instagram_ui/pages/mainView.dart';
 import 'package:instagram_ui/states.dart';
 
+import '../storages.dart';
+
 class AddPostPage extends StatefulWidget {
   const AddPostPage({Key? key}) : super(key: key);
 
@@ -170,13 +172,16 @@ class _AddPostPageState extends State<AddPostPage> {
                           onPressed: () {
                             if (descriptionCtr.text.isNotEmpty &&
                                 image.path != "") {
-                              posts.add(PostModel(
+                              box!.add(PostModel(
                                 userImage: 'assets/images/Super.jpg',
                                 userName: "@muzikant_707",
                                 imagePath: image.path,
                                 caption: descriptionCtr.text,
                                 time: "17:16"
                               ));
+                              setState(() {
+
+                              });
 
 
                               Navigator.of(context).pushReplacement(
