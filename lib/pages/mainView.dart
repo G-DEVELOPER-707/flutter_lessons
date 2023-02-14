@@ -15,12 +15,12 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView> {
-  var _pages = [
-    HomePage(),
-    SearchPage(),
-    AddPostPage(),
-    NotificationsPage(),
-    ProfilePage()
+  final _pages = [
+    const HomePage(),
+    const SearchPage(),
+    const AddPostPage(),
+    const NotificationsPage(),
+    const ProfilePage()
   ];
 
   int currentPage = 0;
@@ -29,8 +29,9 @@ class _MainViewState extends State<MainView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pages[currentPage],
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.black,
           currentIndex: currentPage,
           onTap: (i) {
             setState(() {});
@@ -39,29 +40,39 @@ class _MainViewState extends State<MainView> {
           type: BottomNavigationBarType.fixed,
           showSelectedLabels: false,
           showUnselectedLabels: false,
-          selectedItemColor: Colors.black,
-          items: const [
-            BottomNavigationBarItem(
+          selectedItemColor: Colors.white,
+          unselectedItemColor: Colors.grey,
+          items: [
+            const BottomNavigationBarItem(
               icon: Icon(Icons.home),
               label: "Feed"
             ),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
               icon: Icon(Icons.search),
               label: "Search"
             ),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
               icon: Icon(Icons.add),
               label: "Upload"
             ),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
               icon: Icon(CupertinoIcons.heart),
               label: "Notifications"
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.circle),
+              icon: ClipRRect(
+                borderRadius: BorderRadius.circular(40),
+                child: const Image(
+                  image: AssetImage('assets/images/Super.jpg'),
+                  width: 30,
+                  height: 30,
+                  fit: BoxFit.cover,
+                ),
+              ),
               label: "Profile"
             ),
           ]),
     );
   }
 }
+

@@ -1,8 +1,32 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_ui/pages/mainView.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:instagram_ui/storages.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'models/post_Model.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+  await Hive.initFlutter();
+
+  user = await Hive.openBox('user');
+  Hive.registerAdapter(PostModelAdapter());
+  box = await Hive.openBox('box');
+  runApp(
+    EasyLocalization(
+      supportedLocales: [
+        Locale('en', 'US'),
+        Locale('ru', 'RU'),
+        Locale('uz', 'UZ'),
+      ],
+      path: 'assets/translation',
+      fallbackLocale: const Locale('en', 'US'),
+      // saveLocale: true,
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -12,7 +36,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+      title: 'Instagram UI',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -25,7 +52,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home:MainView()
+      home: const MainView(),
     );
   }
 }
